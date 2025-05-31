@@ -69,7 +69,7 @@ class RegistrationForm extends StatelessWidget {
           DropDownInputField(
             prefixIcon: RIcon.User,
             controller: controller.userTypeController,
-            hintText: 'Select user type',
+            hintText: 'User type',
             errorMessage: 'Field Required',
             fieldTitle: 'User Type',
             needTitle: false,
