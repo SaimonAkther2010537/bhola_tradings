@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../theme/app_color_config.dart';
 import '../theme/text_config.dart';
 
+
 class CustomTabBarController extends GetxController {
   var selectedTabIndex = 0.obs;
 

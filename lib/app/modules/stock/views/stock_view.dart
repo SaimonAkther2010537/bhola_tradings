@@ -5,9 +5,11 @@ import 'package:r_icon_pro/r_icon_pro.dart';
 import '../../../core/theme/app_color_config.dart';
 import '../../../core/theme/text_config.dart';
 import '../../../core/widgets/buttons/rouded_action_button.dart';
+import '../../../core/widgets/custom_loading.dart';
 import '../../../core/widgets/custom_rich_text.dart';
 import '../../../core/widgets/custom_tabbar.dart';
 import '../../../core/widgets/input_widgets/simple_input_field.dart';
+import '../../../core/widgets/messsage_box.dart';
 import '../controllers/stock_controller.dart';
 import '../widgets/add_product_popup.dart';
 import '../widgets/stock_card.dart';
@@ -93,23 +95,36 @@ class StockView extends GetView<StockController> {
 
                       SizedBox(height: 15),
 
-                      GridView.builder(
-                        itemCount: controller.stockItems.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 4,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                              childAspectRatio: 3,
-                            ),
-                        itemBuilder: (context, index) {
-                          return StockCard(
-                            productName: controller.stockItems[index]["name"]!,
-                            value: controller.stockItems[index]["value"]!,
-                          );
-                        },
+                      Material(
+                        borderRadius: BorderRadius.circular(10),
+                        color: AppColor.bgLightColor,
+                        clipBehavior: Clip.hardEdge,
+                        child: Obx(() {
+                          return controller.isLoading == true
+                              ? Loading()
+                              : controller.allProductList.isEmpty
+                              ? MessageBox(message: 'No data found')
+                              : GridView.builder(
+                                itemCount: controller.allProductList.length,
+                                padding: EdgeInsets.all(10),
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 4,
+                                      crossAxisSpacing: 10,
+                                      mainAxisSpacing: 10,
+                                      childAspectRatio: 3,
+                                    ),
+                                itemBuilder: (context, index) {
+                                  final data = controller.allProductList[index];
+                                  return StockCard(
+                                    productName: data.name.toString(),
+                                    value: data.totalQuantity.toString(),
+                                  );
+                                },
+                              );
+                        }),
                       ),
                     ],
                   ),
@@ -226,9 +241,7 @@ class StockView extends GetView<StockController> {
               ),
 
               ///********************************************** Stock Out Card **************************************
-
               SizedBox(height: 20),
-
               Card(
                 color: AppColor.white,
                 elevation: 2,
@@ -287,12 +300,12 @@ class StockView extends GetView<StockController> {
                                 physics: NeverScrollableScrollPhysics(),
                                 itemCount: 10,
                                 gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 4,
-                                  mainAxisSpacing: 10,
-                                  crossAxisSpacing: 10,
-                                  childAspectRatio: 3,
-                                ),
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 4,
+                                      mainAxisSpacing: 10,
+                                      crossAxisSpacing: 10,
+                                      childAspectRatio: 3,
+                                    ),
                                 itemBuilder: (context, index) {
                                   return StockCard(
                                     value: "45",
@@ -335,8 +348,6 @@ class StockView extends GetView<StockController> {
                   ),
                 ),
               ),
-
-
 
             ],
           ),

@@ -64,7 +64,7 @@ class _DateTimeInputFieldState extends State<DateTimeInputField> {
                 errorStyle: AppText().bodyLarge.copyWith(fontSize: 11, color: AppColor.red),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                 hintText: widget.hintText,
-                hintStyle: AppText().bodyMediumBold.copyWith(color: AppColor.primaryBlack),
+                hintStyle: AppText().bodyMediumBold.copyWith(color: AppColor.disabled),
                 // label: Get.focusScope !=null && Get.focusScope!.hasFocus
                 //     ? RichText(
                 //     text: TextSpan(

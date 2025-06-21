@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../theme/app_color_config.dart';
 import '../theme/text_config.dart';
 
-
 class CustomRichText extends StatelessWidget {
   final String amount;
 

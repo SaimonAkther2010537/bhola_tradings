@@ -14,7 +14,6 @@ import '../../entity_details/views/entity_details_view.dart';
 import '../controllers/entity_controller.dart';
 import '../widgets/add_entity_popup.dart';
 import '../widgets/customer_card.dart';
-import '../widgets/pay_popup.dart';
 import '../widgets/vendor_card.dart';
 
 class EntityView extends GetView<EntityController> {
@@ -37,20 +36,13 @@ class EntityView extends GetView<EntityController> {
                     Card(
                       color: AppColor.white,
                       elevation: 2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       child: Padding(
                         padding: const EdgeInsets.all(16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Center(
-                              child: Text(
-                                "Entities",
-                                style: AppText().headerLine4,
-                              ),
-                            ),
+                            Center(child: Text("Entities", style: AppText().headerLine4)),
                             SizedBox(height: 10),
 
                             /// ********************************* Year Searchbar and Add Entities Button *********************************
@@ -82,12 +74,7 @@ class EntityView extends GetView<EntityController> {
                               ],
                             ),
                             SizedBox(height: 10),
-                            Center(
-                              child: Text(
-                                "Customers",
-                                style: AppText().headerLine3,
-                              ),
-                            ),
+                            Center(child: Text("Customers", style: AppText().headerLine3)),
                             SizedBox(height: 10),
 
                             ///********************************* Custom Searchbar *********************************
@@ -112,56 +99,18 @@ class EntityView extends GetView<EntityController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 10,
-                                    horizontal: 12,
-                                  ),
+                                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       ///********************************* Tab Bar Headings *********************************
-                                      Expanded(
-                                        child: Text(
-                                          'Name',
-                                          style: AppText().headerLine6.copyWith(
-                                            color: AppColor.yellow,
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          'Phone',
-                                          style: AppText().headerLine6.copyWith(
-                                            color: AppColor.yellow,
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          'Amount',
-                                          style: AppText().headerLine6.copyWith(
-                                            color: AppColor.yellow,
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          'Address',
-                                          style: AppText().headerLine6.copyWith(
-                                            color: AppColor.yellow,
-                                          ),
-                                        ),
-                                      ),
+                                      Expanded(child: Text('Name', style: AppText().headerLine6.copyWith(color: AppColor.yellow))),
+                                      Expanded(child: Text('Phone', style: AppText().headerLine6.copyWith(color: AppColor.yellow))),
+                                      Expanded(child: Text('Amount', style: AppText().headerLine6.copyWith(color: AppColor.yellow))),
+                                      Expanded(child: Text('Address', style: AppText().headerLine6.copyWith(color: AppColor.yellow))),
                                       Expanded(
                                         child: Center(
-                                          child: Text(
-                                            'Actions',
-                                            style: AppText().headerLine6
-                                                .copyWith(
-                                                  color: AppColor.yellow,
-                                                ),
-                                          ),
+                                          child: Text('Actions', style: AppText().headerLine6.copyWith(color: AppColor.yellow)),
                                         ),
                                       ),
                                     ],
@@ -177,16 +126,14 @@ class EntityView extends GetView<EntityController> {
                                       shrinkWrap: true,
                                       physics: NeverScrollableScrollPhysics(),
                                       clipBehavior: Clip.hardEdge,
-                                      itemCount:
-                                          controller.getAllCustomerList.length,
+                                      itemCount: controller.getAllCustomerList.length,
                                       itemBuilder: (context, index) {
-                                        final data =
-                                            controller
-                                                .getAllCustomerList[index];
+                                        final data = controller.getAllCustomerList[index];
                                         return CustomerCard(
                                           name: data.name.toString(),
                                           phone: data.phone.toString(),
                                           address: data.address.toString(),
+                                          amount: data.balance.toString(),
                                         );
                                       },
                                     ),
@@ -203,21 +150,14 @@ class EntityView extends GetView<EntityController> {
                     Card(
                       color: AppColor.white,
                       elevation: 2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       child: Padding(
                         padding: const EdgeInsets.all(16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             /// ********************************* Year Searchbar and Add Entities Button *********************************
-                            Center(
-                              child: Text(
-                                "Vendors",
-                                style: AppText().headerLine3,
-                              ),
-                            ),
+                            Center(child: Text("Vendors", style: AppText().headerLine3)),
                             SizedBox(height: 10),
 
                             ///********************************* Custom Searchbar *********************************
@@ -242,60 +182,18 @@ class EntityView extends GetView<EntityController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 10,
-                                    horizontal: 12,
-                                  ),
+                                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
                                   child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       ///********************************* Tab Bar Headings *********************************
-                                      Expanded(
-                                        child: Text(
-                                          'Name',
-                                          style: AppText().headerLine6
-                                              .copyWith(
-                                            color: AppColor.yellow,
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          'Phone',
-                                          style: AppText().headerLine6
-                                              .copyWith(
-                                            color: AppColor.yellow,
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          'Amount',
-                                          style: AppText().headerLine6
-                                              .copyWith(
-                                            color: AppColor.yellow,
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          'Address',
-                                          style: AppText().headerLine6
-                                              .copyWith(
-                                            color: AppColor.yellow,
-                                          ),
-                                        ),
-                                      ),
+                                      Expanded(child: Text('Name', style: AppText().headerLine6.copyWith(color: AppColor.yellow))),
+                                      Expanded(child: Text('Phone', style: AppText().headerLine6.copyWith(color: AppColor.yellow))),
+                                      Expanded(child: Text('Amount', style: AppText().headerLine6.copyWith(color: AppColor.yellow))),
+                                      Expanded(child: Text('Address', style: AppText().headerLine6.copyWith(color: AppColor.yellow))),
                                       Expanded(
                                         child: Center(
-                                          child: Text(
-                                            'Actions',
-                                            style: AppText().headerLine6
-                                                .copyWith(
-                                              color: AppColor.yellow,
-                                            ),
-                                          ),
+                                          child: Text('Actions', style: AppText().headerLine6.copyWith(color: AppColor.yellow)),
                                         ),
                                       ),
                                     ],
@@ -308,21 +206,22 @@ class EntityView extends GetView<EntityController> {
                                     : controller.allVendorList.isEmpty
                                     ? MessageBox(message: 'No data found')
                                     : ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  clipBehavior: Clip.hardEdge,
-                                  itemCount: controller.allVendorList.length,
-                                  itemBuilder: (context, index) {
-                                    final data = controller.allVendorList[index];
-                                    return VendorCard(
-                                      name: data.name.toString(),
-                                      phone: data.phone.toString(),
-                                      address: data.address.toString(),
-                                    );
-                                  },
-                                ),
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      clipBehavior: Clip.hardEdge,
+                                      itemCount: controller.allVendorList.length,
+                                      itemBuilder: (context, index) {
+                                        final data = controller.allVendorList[index];
+                                        return VendorCard(
+                                          name: data.name.toString(),
+                                          phone: data.phone.toString(),
+                                          address: data.address.toString(),
+                                          amount: data.balance.toString(),
+                                        );
+                                      },
+                                    ),
                               ],
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -332,6 +231,6 @@ class EntityView extends GetView<EntityController> {
               ),
             ),
           );
-    },);
+    });
   }
 }

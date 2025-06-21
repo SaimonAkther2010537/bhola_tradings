@@ -61,7 +61,7 @@ class _RoundedActionButtonState extends State<RoundedActionButton> {
           child: Container(
             // height: widget.height ?? 45,
             // width: widget.width ?? 120,
-            padding: widget.padding ?? const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            padding: widget.padding ?? const EdgeInsets.all(0),
             decoration: BoxDecoration(
               borderRadius: widget.borderRadius ?? BorderRadius.circular(widget.radius ?? 6),
               border: showFilledButton

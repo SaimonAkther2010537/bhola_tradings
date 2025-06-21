@@ -13,7 +13,7 @@ import '../controllers/login_controller.dart';
 class RegistrationForm extends StatelessWidget {
   final LoginController controller;
 
-  RegistrationForm({Key? key, required this.controller}) : super(key: key);
+  const RegistrationForm({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {

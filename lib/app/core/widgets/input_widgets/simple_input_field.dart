@@ -106,7 +106,7 @@ class _SimpleInputFieldState extends State<SimpleInputField> {
           style: widget.inputTextStyle ?? AppText().bodyMediumBold,
           textAlign: widget.textAlign ?? TextAlign.start,
           readOnly: widget.viewOnly ?? false,
-          enabled: widget.viewOnly != null ? !widget.viewOnly! : true,
+          // enabled: widget.viewOnly != null ? !widget.viewOnly! : true,
           // maxLength: null,
           decoration: InputDecoration(
             // counter:Text(""),

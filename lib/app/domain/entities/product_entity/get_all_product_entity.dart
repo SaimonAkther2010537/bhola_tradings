@@ -1,11 +1,11 @@
 class GetAllProductEntity {
   int? id;
   String? name;
-  int? totalQuantity;
-  int? remainingQuantity;
+  double? totalQuantity;
+  double? remainingQuantity;
   double? latestPricePerKg;
-  int? totalPrice;
-  int? remainingPrice;
+  double? totalPrice;
+  double? remainingPrice;
   double? averageUnitPrice;
 
   GetAllProductEntity({

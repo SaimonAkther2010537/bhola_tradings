@@ -11,12 +11,13 @@ class CustomerCard extends StatelessWidget {
   final String name;
   final String phone;
   final String address;
+  final String amount;
 
   const CustomerCard({
     super.key,
     required this.name,
     required this.phone,
-    required this.address,
+    required this.address, required this.amount,
   });
 
   @override
@@ -75,13 +76,8 @@ class CustomerCard extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              '0',
-              style: AppText().headerLine6Light.copyWith(
-                color:
-                    double.parse('0'.replaceAll(',', '')) > 0
-                        ? AppColor.red
-                        : AppColor.primaryGreen,
-              ),
+              amount,
+              style: AppText().headerLine6Light,
             ),
           ),
           Expanded(

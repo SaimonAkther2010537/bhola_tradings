@@ -1,3 +1,4 @@
+
 import 'package:bhola_tradings/app/modules/entitys/entity/widgets/pay_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,12 +12,13 @@ class VendorCard extends StatelessWidget {
   final String name;
   final String phone;
   final String address;
+  final String amount;
 
   const VendorCard({
     super.key,
     required this.name,
     required this.phone,
-    required this.address,
+    required this.address, required this.amount,
   });
 
   @override
@@ -75,13 +77,8 @@ class VendorCard extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              '0',
-              style: AppText().headerLine6Light.copyWith(
-                color:
-                double.parse('0'.replaceAll(',', '')) > 0
-                    ? AppColor.red
-                    : AppColor.primaryGreen,
-              ),
+              amount,
+              style: AppText().headerLine6Light,
             ),
           ),
           Expanded(

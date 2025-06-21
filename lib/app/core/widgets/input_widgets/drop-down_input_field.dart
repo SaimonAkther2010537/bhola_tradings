@@ -141,14 +141,14 @@ class _DropDownInputFieldState extends State<DropDownInputField> {
               : widget.itemBuilder != null || widget.itemBuilder!.isEmpty
               ? widget.itemBuilder
               : [],
-          style: AppText().bodyMediumBold.copyWith(color: AppColor.red),
+          style:widget.titleStyle,
           decoration: InputDecoration(
             hintMaxLines: 1,
             errorStyle: AppText().bodyLarge.copyWith(fontSize: 11, color: AppColor.red),
             contentPadding: widget.controller.text.isNotEmpty ? const EdgeInsets.only(right: 4, left: 0, bottom: 0, top: 0) : const EdgeInsets.only(right: 4, left: 10, bottom: 0, top: 0),
             hintText: widget.hintText,
             hintTextDirection: TextDirection.ltr,
-            hintStyle: AppText().bodyMediumBold.copyWith(color: AppColor.primaryBlack),
+            hintStyle: AppText().bodyMediumBold.copyWith(color: AppColor.disabled),
             filled: true,
             fillColor: widget.backgroundColor ?? AppColor.bgLightColor,
             prefixIcon: widget.prefixWidget ?? (widget.prefixIcon != null ? Icon(widget.prefixIcon) : null),

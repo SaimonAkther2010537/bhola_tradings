@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_color_config.dart';
 import '../../../core/theme/text_config.dart';
 
-
 class DashboardCard extends StatelessWidget {
   final String title;
   final IconData icon;

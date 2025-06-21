@@ -60,6 +60,11 @@ class EntityController extends GetxController {
   var isLoading = false.obs;
 
 
+  String getCustomerId({required String name}) {
+    return getAllCustomerList.firstWhere((element) => element.name.toString().compareTo(name) == 0).id.toString();
+  }
+
+
   Future<void> getAllCustomer() async {
     getAllCustomerList.clear();
     isLoading.value = true;
@@ -81,6 +86,9 @@ class EntityController extends GetxController {
   var allVendorList = <GetAllVendor>[].obs;
   var isLoading2 = false.obs;
 
+  String getVendorId({required String name}) {
+    return allVendorList.firstWhere((element) => element.name.toString().compareTo(name) == 0).id.toString();
+  }
 
   Future<void> getAllVendor() async {
     allVendorList.clear();

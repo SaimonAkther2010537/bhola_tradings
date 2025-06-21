@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 
 import '../../../core/constant/api_end_points.dart';
@@ -12,7 +10,6 @@ import '../../../domain/repositories/entity_repo/entity_repository.dart';
 import '../../data_source/local_data_storage/auth_data_storage/local_data_storage_repository.dart';
 import '../../dto_model/entity_dto/create_customer_dto_model.dart';
 import '../../dto_model/entity_dto/create_vendor_dto_model.dart';
-import '../../models/auth_model/logout_response_model.dart';
 import '../../models/entity_model/create_customer_model.dart';
 import '../../models/entity_model/create_vendor_model.dart';
 import '../../models/entity_model/get_all_customer_model.dart';
@@ -23,22 +20,20 @@ class EntityRepoImpl implements EntityRepository {
 
   EntityRepoImpl({required this.localDataStorageRepository});
 
-
   ///----------------------------------- Get All Customer ----------------------------------
   @override
-  Future<List<GetAllCustomerEntity>> getAllCustomer() async{
+  Future<List<GetAllCustomerEntity>> getAllCustomer() async {
     final completer = Completer<List<GetAllCustomerEntity>>();
 
     try {
-
       await BaseClient().safeApiCall(
         ApiEndPoints().getCustomerUrl,
         RequestType.get,
         headers: {"Authorization": "Bearer ${localDataStorageRepository.accessToken}"},
         onSuccess: (response) {
           if (response.statusCode == 200) {
-            // completer.complete((GetAllCustomerModel.fromJson(response.data).map((e) => e.toEntity()).toList()));
-            completer.complete((response.data as List<dynamic>).map((e) => GetAllCustomerModel.fromJson(e).toEntity()).toList());
+            completer.complete((GetAllCustomerModel.fromJson(response.data).customers!.map((e) => e.toEntity()).toList()));
+            // completer.complete((response.data as List<dynamic>).map((e) => GetAllCustomerModel.fromJson(e).customers.toEntity()).toList());
           } else {
             completer.completeError(response.data['message']);
           }
@@ -52,24 +47,20 @@ class EntityRepoImpl implements EntityRepository {
     return completer.future;
   }
 
-
   ///----------------------------------- Get All Vendor ----------------------------------
 
-
   @override
-  Future<List<GetAllVendor>> getAllVendor() async{
+  Future<List<GetAllVendor>> getAllVendor() async {
     final completer = Completer<List<GetAllVendor>>();
 
     try {
-
       await BaseClient().safeApiCall(
         ApiEndPoints().getVendorUrl,
         RequestType.get,
         headers: {"Authorization": "Bearer ${localDataStorageRepository.accessToken}"},
         onSuccess: (response) {
           if (response.statusCode == 200) {
-            // completer.complete((GetAllCustomerModel.fromJson(response.data).map((e) => e.toEntity()).toList()));
-            completer.complete((response.data as List<dynamic>).map((e) => GetAllVendorModel.fromJson(e).toEntity()).toList());
+            completer.complete((GetAllVendorModel.fromJson(response.data).vendors!.map((e) => e.toEntity()).toList()));
           } else {
             completer.completeError(response.data['message']);
           }
@@ -78,20 +69,20 @@ class EntityRepoImpl implements EntityRepository {
           completer.completeError(e);
         },
       );
-    } catch (error) {}
-
+    } catch (error) {
+      return completer.future;
+    }
     return completer.future;
-
   }
 
   /// ----------------------------------- Create Customer ----------------------------------
   @override
-  Future<CreateCustomerEntity> createCustomer({required CreateCustomerDtoModel createCustomerDtoModel}) async{
+  Future<CreateCustomerEntity> createCustomer({required CreateCustomerDtoModel createCustomerDtoModel}) async {
     final completer = Completer<CreateCustomerEntity>();
 
     try {
       await BaseClient().safeApiCall(
-        ApiEndPoints().getCustomerUrl,
+        ApiEndPoints().createCustomerUrl,
         RequestType.post,
         headers: {"Authorization": "Bearer ${localDataStorageRepository.accessToken}"},
         data: createCustomerDtoModel.toJson(),
@@ -113,16 +104,15 @@ class EntityRepoImpl implements EntityRepository {
     return completer.future;
   }
 
-
   /// ----------------------------------- Create Vendor ----------------------------------
 
   @override
-  Future<CreateVendorEntity> createVendor({required CreateVendorDtoModel createVendorDtoModel}) async{
+  Future<CreateVendorEntity> createVendor({required CreateVendorDtoModel createVendorDtoModel}) async {
     final completer = Completer<CreateVendorEntity>();
 
     try {
       await BaseClient().safeApiCall(
-        ApiEndPoints().getVendorUrl,
+        ApiEndPoints().createVendorUrl,
         RequestType.post,
         headers: {"Authorization": "Bearer ${localDataStorageRepository.accessToken}"},
         data: createVendorDtoModel.toJson(),
@@ -143,9 +133,4 @@ class EntityRepoImpl implements EntityRepository {
     }
     return completer.future;
   }
-
-
-
-
 }
-

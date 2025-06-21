@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:r_icon_pro/r_icon_pro.dart';
 import '../../../core/theme/app_assets.dart';
 import '../../../core/theme/app_color_config.dart';
-import '../../../core/theme/text_config.dart';
 import '../controllers/home_controller.dart';
+import '../widgets/account_dropdown.dart';
 import '../widgets/custom_drawer_item.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -75,45 +74,46 @@ class HomeView extends GetView<HomeController> {
               fit: BoxFit.contain,
               height: 60,
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: Material(
-                borderRadius: BorderRadius.circular(12),
-                color: Colors.transparent,
-                clipBehavior: Clip.hardEdge,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(RIcon.User, size: 16, color: AppColor.yellow),
-                    const SizedBox(width: 8),
-                    Text(
-                      controller.localDataStorageRepository.userName,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppText().bodyMedium.copyWith(
-                        color: AppColor.yellow,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(width: 20),
-                    IconButton(
-                      onPressed: () {
-                        controller.authService.userLogout();
-                      },
-                      icon: Icon(RIcon.Login_2, size: 20, color: AppColor.yellow),
-                    ),
-                    // const SizedBox(width: 6),
-                    // Icon(
-                    //   Icons.keyboard_arrow_down_rounded,
-                    //   size: 20,
-                    //   color: AppColor.yellow,
-                    // ),
-                  ],
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 10),
+            //   child: Material(
+            //     borderRadius: BorderRadius.circular(12),
+            //     color: Colors.transparent,
+            //     clipBehavior: Clip.hardEdge,
+            //     child: Row(
+            //       mainAxisSize: MainAxisSize.min,
+            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //       children: [
+            //         Icon(RIcon.User, size: 16, color: AppColor.yellow),
+            //         const SizedBox(width: 8),
+            //         Text(
+            //           controller.localDataStorageRepository.userName,
+            //           overflow: TextOverflow.ellipsis,
+            //           style: AppText().bodyMedium.copyWith(
+            //             color: AppColor.yellow,
+            //             fontSize: 15,
+            //             fontWeight: FontWeight.w600,
+            //           ),
+            //         ),
+            //         SizedBox(width: 20),
+            //         IconButton(
+            //           onPressed: () {
+            //             controller.authService.userLogout();
+            //           },
+            //           icon: Icon(RIcon.Login_2, size: 20, color: AppColor.yellow),
+            //         ),
+            //         // const SizedBox(width: 6),
+            //         // Icon(
+            //         //   Icons.keyboard_arrow_down_rounded,
+            //         //   size: 20,
+            //         //   color: AppColor.yellow,
+            //         // ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             // SizedBox(width: 8),
+            const AccountDropdown(),
 
           ],
         ),
