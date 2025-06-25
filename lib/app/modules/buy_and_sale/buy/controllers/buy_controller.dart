@@ -11,6 +11,7 @@ import '../../../../domain/entities/lot_entity/buy_lot_entity.dart';
 import '../../../../domain/services/lot_service.dart';
 import '../../../entitys/entity/controllers/entity_controller.dart';
 import '../../../stock/controllers/stock_controller.dart';
+import '../../sale/controllers/sale_controller.dart';
 
 class BuyController extends GetxController {
   final LotService lotService;
@@ -34,6 +35,11 @@ class BuyController extends GetxController {
   // final buyingStatusController = TextEditingController();
   final truckNumberController = TextEditingController();
   final noteController = TextEditingController();
+
+
+  final saleController = Get.find<SaleController>();
+
+
 
   @override
   void onInit() {
@@ -69,10 +75,10 @@ class BuyController extends GetxController {
       ).then(
             (value) {
           buyLotEntity = value;
-
           print("============${value.message}");
           Loader.hide();
           clearFields();
+          saleController.getAllLot();
           stockController.getAllProduct();
           CustomSnackBar.showCustomSuccessToast(title: "Congratulation", message: "Lot bought successfully");
 
@@ -85,13 +91,7 @@ class BuyController extends GetxController {
     }
   }
 
-
-
-
-
-
-
-
+  
   void _setupCalculationListeners() {
     quantityController.addListener(_calculateTotalPrice);
     unitPriceController.addListener(_calculateTotalPrice);

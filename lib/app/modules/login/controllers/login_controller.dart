@@ -62,50 +62,33 @@ class LoginController extends GetxController {
     FocusScope.of(context).unfocus();
     Loader.show(context, progressIndicator: Loading());
     try {
-      authService
-          .userLogin(
-            email: emailController.text.trim(),
-            password: passwordController.text.trim(),
-          )
-          .then((value) {
+      bool loginSuccess = await authService.userLogin(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
 
-            if (authService.loginResponse.value.message.isNull){
-              Loader.hide();
+      Loader.hide();
 
-              CustomSnackBar.showCustomErrorToast(
-                title: "Alert",
-                message: 'User not found, Please provide valid email and password',
-              );
+      if (loginSuccess) {
+        CustomSnackBar.showCustomSuccessToast(
+          title: "Success",
+          message: 'User Login Successfully',
+        );
 
-              clearLoginFields();
-              // toggleForm();
-            }
-            else {
-              print(
-                '---------------Token Save ${localDataStorageRepository.accessToken}---------------',
-              );
+        print(
+          '-----------Token----------"${localDataStorageRepository.accessToken} -------${localDataStorageRepository.userRole}-------${localDataStorageRepository.userName}"---------------',
+        );
+        clearLoginFields();
 
-              print(
-                '---------------Token Name ${localDataStorageRepository.userName}---------------',
-              );
-              print(
-                '---------------Token role ${localDataStorageRepository.userRole}---------------',
-              );
 
-              // print(
-              //   '---------------User Name ${authService.loginResponse.value.userName}---------------',
-              // );
-
-              Loader.hide();
-
-              CustomSnackBar.showCustomSuccessToast(
-                title: "Success",
-                message: 'User Login Successfully',
-              );
-              clearLoginFields();
-              Get.toNamed(Routes.HOME);
-            }
-          });
+        Get.toNamed(Routes.HOME);
+      } else {
+        CustomSnackBar.showCustomErrorToast(
+          title: "Alert",
+          message: 'User not found, Please provide valid email and password',
+        );
+        clearLoginFields();
+      }
     } catch (e) {
       Loader.hide();
       CustomSnackBar.showCustomErrorToast(
@@ -154,19 +137,17 @@ class LoginController extends GetxController {
     } catch (e) {
       Loader.hide();
       // registerResponse = e as RegisterResponseEntity;
-      if(registerResponse.value.message == null){
+      if (registerResponse.value.message == null) {
         CustomSnackBar.showCustomErrorToast(
           title: "Alert",
           message: 'Email Already Taken',
         );
-      }else{
+      } else {
         CustomSnackBar.showCustomErrorToast(
           title: "Alert",
           message: 'Please Try Again',
         );
       }
-
-
     }
   }
 

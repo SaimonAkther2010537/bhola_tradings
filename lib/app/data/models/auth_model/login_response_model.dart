@@ -41,6 +41,7 @@ class LoginResponseModel {
     return LoginResponseEntity(
       message: message ?? '',
       token: token ?? '',
+      status: status ?? false,
       userId: user == null ? 0 : user!.id ?? 0,
       userType: user == null ? '' : user!.userType ?? '',
       userName: user == null ? '' : user!.name ?? '',

@@ -11,13 +11,18 @@ class AuthService extends GetxService {
   final AuthRepository authRepository;
   final LocalDataStorageRepository localDataStorageRepository;
 
-  AuthService({required this.authRepository, required this.localDataStorageRepository});
+  AuthService({
+    required this.authRepository,
+    required this.localDataStorageRepository,
+  });
 
   ///================================= User Register  ==================================================
 
   // var registerResponse = RegisterResponseEntity().obs;
 
-  Future<RegisterResponseEntity> userRegister({required RegisterDtoModel registerDtoModel}) async {
+  Future<RegisterResponseEntity> userRegister({
+    required RegisterDtoModel registerDtoModel,
+  }) async {
     return authRepository.userRegistration(registerDtoModel: registerDtoModel);
   }
 
@@ -26,20 +31,29 @@ class AuthService extends GetxService {
   RxString token = "".obs;
   var loginResponse = LoginResponseEntity().obs;
 
-  Future<bool> userLogin({required String email, required String password}) async {
+  Future<bool> userLogin({
+    required String email,
+    required String password,
+  }) async {
     try {
-      LoginResponseEntity loginResponseEntity = await authRepository.userLogin(email: email, password: password).then((value) {
-        return loginResponse.value = value;
-      });
-
-      token.value = loginResponseEntity.token!;
-      localDataStorageRepository.storeAllAuthData(
-        accessToken: loginResponseEntity.token!,
-        userRole: loginResponseEntity.userType!,
-        userName: loginResponseEntity.userName!,
+      LoginResponseEntity loginResponseEntity = await authRepository.userLogin(
+        email: email,
+        password: password,
       );
+      loginResponse.value = loginResponseEntity;
 
-      return true;
+      if (loginResponseEntity.status == true) {
+        token.value = loginResponseEntity.token!;
+        localDataStorageRepository.storeAllAuthData(
+          accessToken: loginResponseEntity.token!,
+          userRole: loginResponseEntity.userType!,
+          userName: loginResponseEntity.userName!,
+        );
+        return true;
+      } else {
+        // Do not store anything if status is false
+        return false;
+      }
     } catch (error) {
       return false;
     }
@@ -48,7 +62,9 @@ class AuthService extends GetxService {
   /// ************************* User Logout **************************************
 
   Future<void> userLogout() async {
-    authRepository.userLogout(accessToken: localDataStorageRepository.accessToken);
+    authRepository.userLogout(
+      accessToken: localDataStorageRepository.accessToken,
+    );
     print(
       '-----------Token----------"${localDataStorageRepository.accessToken} -------${localDataStorageRepository.userRole}-------${localDataStorageRepository.userName}"---------------',
     );
@@ -56,7 +72,10 @@ class AuthService extends GetxService {
     print(
       '-----------Token Remove Check----------"${localDataStorageRepository.accessToken} ---------${localDataStorageRepository.userName}---------${localDataStorageRepository.userRole}"---------------',
     );
-    CustomSnackBar.showCustomSuccessToast(title: "Success", message: 'User Logout successfully');
+    CustomSnackBar.showCustomSuccessToast(
+      title: "Success",
+      message: 'User Logout successfully',
+    );
     Get.offAllNamed(Routes.LOGIN);
   }
 }

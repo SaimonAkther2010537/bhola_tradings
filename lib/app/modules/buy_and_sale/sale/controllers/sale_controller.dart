@@ -19,12 +19,12 @@ class SaleController extends GetxController {
 
   @override
   void onInit() {
-    getAllLot();
     _setupCalculationListeners();
     super.onInit();
   }
 
   final count = 0.obs;
+
   void increment() => count.value++;
 
   final fromKey = GlobalKey<FormState>();
@@ -37,6 +37,7 @@ class SaleController extends GetxController {
   final totalPriceController = TextEditingController();
   final paidPriceController = TextEditingController();
   final duePriceController = TextEditingController();
+
   // final buyingStatusController = TextEditingController();
   final noteController = TextEditingController();
 
@@ -45,15 +46,9 @@ class SaleController extends GetxController {
   var getAllLotList = <GetAllLotEntity>[].obs;
   var isLoading = false.obs;
 
-  int getLotId({required String selectedLotText}) {
-    final lotIdString = selectedLotText.split('•')[0].trim();
-    return int.parse(lotIdString);
-  }
-
   Future<void> getAllLot() async {
     getAllLotList.clear();
     isLoading.value = true;
-
     try {
       await lotService.getAllLot().then((value) {
         getAllLotList.addAll(value);
@@ -73,7 +68,7 @@ class SaleController extends GetxController {
     Loader.show(context, progressIndicator: Loading());
 
     LotDtoModel model = LotDtoModel(
-      lotId: getLotId(selectedLotText: lotController.text.trim()),
+      lotId: int.parse(lotController.text.split(' ').first),
       customerId: int.parse(
         entityController.getCustomerId(name: customerController.text.trim()),
       ),
@@ -85,12 +80,12 @@ class SaleController extends GetxController {
     );
 
     try {
-      await lotService.saleLot(lotDtoModel: model).then((value) {
+      await lotService.saleLot(lotDtoModel: model).then((value) async {
         createLotEntity = value;
-
-        print("============${value.message}===========");
+        await getAllLot();
         Loader.hide();
         clearFields();
+        update(); // Force UI update for dropdowns
         CustomSnackBar.showCustomSuccessToast(
           title: "Congratulation",
           message: "Lot sold successfully",
@@ -98,11 +93,22 @@ class SaleController extends GetxController {
       });
     } catch (e) {
       Loader.hide();
+      clearFields();
+      update(); // Force UI update for dropdowns
       var error = e as CreateLotEntity;
-      CustomSnackBar.showCustomErrorToast(
-        title: "Alert",
-        message: 'Some error occurred, please try again later',
-      );
+      try {
+        if (error != "") {
+          CustomSnackBar.showCustomErrorToast(
+            title: "Alert",
+            message: error.error.toString(),
+          );
+        }
+      } catch (e) {
+        CustomSnackBar.showCustomErrorToast(
+          title: "Alert",
+          message: 'Some error occurred, please try again later',
+        );
+      }
     }
   }
 

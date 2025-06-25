@@ -1,6 +1,7 @@
 class LoginResponseEntity {
   String? message;
   String? token;
+  bool? status;
   int? userId;
   String? userName;
   String? phoneNumber;
@@ -15,5 +16,6 @@ class LoginResponseEntity {
     this.userType,
     this.userName,
     this.phoneNumber,
+    this.status,
   });
 }

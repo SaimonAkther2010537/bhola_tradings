@@ -1,4 +1,3 @@
-
 import 'package:bhola_tradings/app/modules/entitys/entity/widgets/pay_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

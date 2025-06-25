@@ -33,7 +33,9 @@ class SaleView extends GetView<SaleController> {
               Card(
                 color: AppColor.white,
                 elevation: 2,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: Form(
@@ -48,7 +50,10 @@ class SaleView extends GetView<SaleController> {
                               child: Center(
                                 child: Text(
                                   "Sale Transaction",
-                                  style: AppText().headerLine3.copyWith(color: AppColor.yellow, fontWeight: FontWeight.w300),
+                                  style: AppText().headerLine3.copyWith(
+                                    color: AppColor.yellow,
+                                    fontWeight: FontWeight.w300,
+                                  ),
                                 ),
                               ),
                             ),
@@ -68,46 +73,113 @@ class SaleView extends GetView<SaleController> {
 
                         SizedBox(height: 25),
 
-                        Row(
-                          children: [
-                            Flexible(
-                              child: Obx(
-                                () => DropDownInputField(
-                                  needSearch: true,
+                        Obx(
+                          () => Row(
+                            children: [
+                              Flexible(
+                                child: DropDownInputField(
                                   controller: controller.lotController,
+                                  hintText: 'Select',
+                                  fieldTitle: 'Lot Product',
+                                  needSearch: true,
+                                  needValidation: true,
+                                  errorMessage: 'Please Fill Up This Form',
+                                  needTitle: true,
+                                  titleStyle: AppText().bodyMedium,
+                                  itemBuilder:
+                                      controller.getAllLotList.map((element) {
+                                        return DropdownMenuItem(
+                                          value:
+                                              "${element.id.toString()} ${element.productName.toString()}",
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                width: 15,
+                                                height: 15,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.blue.shade100,
+                                                  borderRadius:
+                                                      BorderRadius.circular(6),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    element.id.toString(),
+                                                    style: AppText().bodySmall,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 12),
+
+                                              // Product Info Section
+                                              Expanded(
+                                                flex: 3,
+                                                child: Text(
+                                                  element.productName ?? '',
+                                                  style:
+                                                      AppText().bodyMediumBold,
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ),
+
+                                              Material(
+                                                color: AppColor.primaryGreen,
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        horizontal: 8.0,
+                                                        vertical: 2,
+                                                      ),
+                                                  child: Text(
+                                                    '${element.remainingQuantity}KG',
+                                                    style: AppText().bodySmall,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 15),
+
+                                              Text(
+                                                formatApiDate(
+                                                  element.purchaseDate
+                                                      .toString(),
+                                                ),
+                                                style: AppText().bodySmall,
+                                                textAlign: TextAlign.end,
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      }).toList(),
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Flexible(
+                                child: DropDownInputField(
+                                  needSearch: true,
+                                  controller: controller.customerController,
                                   hintText: 'Select',
                                   needValidation: true,
                                   errorMessage: 'Please Fill Up This Form',
-                                  fieldTitle: 'Lot Product',
+                                  fieldTitle: 'Customer',
                                   needTitle: true,
                                   items:
-                                      controller.getAllLotList
+                                      controller
+                                          .entityController
+                                          .getAllCustomerList
                                           .map(
                                             (element) =>
-                                                "${element.id}•  ${element.productName}  ${formatApiDate(element.purchaseDate.toString())}",
+                                                element.name.toString(),
                                           )
                                           .toList(),
                                   titleStyle: AppText().bodyMediumBold,
+                                  onValueChange: (value) {},
                                 ),
                               ),
-                            ),
-
-                            SizedBox(width: 10),
-                            Flexible(
-                              child: DropDownInputField(
-                                needSearch: true,
-                                controller: controller.customerController,
-                                hintText: 'Select',
-                                needValidation: true,
-                                errorMessage: 'Please Fill Up This Form',
-                                fieldTitle: 'Customer',
-                                needTitle: true,
-                                items: controller.entityController.getAllCustomerList.map((element) => element.name.toString()).toList(),
-                                titleStyle: AppText().bodyMediumBold,
-                                onValueChange: (value) {},
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
 
                         SizedBox(height: 10),

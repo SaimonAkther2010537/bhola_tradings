@@ -142,6 +142,12 @@ class _DropDownInputFieldState extends State<DropDownInputField> {
               ? widget.itemBuilder
               : [],
           style:widget.titleStyle,
+          dropdownStyleData: DropdownStyleData(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
           decoration: InputDecoration(
             hintMaxLines: 1,
             errorStyle: AppText().bodyLarge.copyWith(fontSize: 11, color: AppColor.red),

@@ -1,8 +1,5 @@
-
 import 'package:get/get.dart';
 
-import '../../../data/data_source/local_data_storage/auth_data_storage/local_data_storage_repository_impl.dart';
-import '../../../domain/services/auth_service.dart';
 import '../../../domain/services/entity_service.dart';
 import '../../../domain/services/lot_service.dart';
 import '../../../domain/services/product_service.dart';
@@ -27,7 +24,7 @@ import '../controllers/home_controller.dart';
 class HomeBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<HomeController>(() => HomeController(localDataStorageRepository: Get.find<LocalDataStorageRepositoryImpl>(), authService: Get.find<AuthService>()));
+    Get.lazyPut<HomeController>(() => HomeController());
     Get.lazyPut<DashboardController>(() => DashboardController());
     Get.lazyPut<StockController>(() => StockController(productService: Get.find<ProductService>()));
     Get.lazyPut<BankAccountController>(() => BankAccountController());
